@@ -4,6 +4,83 @@
     <title>Student Registration</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'home.css' %}">
+    <style>
+        .face-capture-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .face-capture-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        #camera-stream {
+            max-width: 300px;
+            border: 2px solid #333;
+            border-radius: 4px;
+            display: none;
+        }
+        #face-preview {
+            max-width: 300px;
+            border: 2px solid #0cc;
+            border-radius: 4px;
+            margin: 10px 0;
+            display: none;
+        }
+        .camera-controls {
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 15px;
+            margin: 5px 5px 5px 0;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button[type="submit"] {
+            background-color: #28a745;
+        }
+        button[type="submit"]:hover {
+            background-color: #218838;
+        }
+        .face-status {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        .face-status.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+        .face-status.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+        .face-status.info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+            display: block;
+        }
+        .optional-note {
+            font-size: 12px;
+            color: #666;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -12,7 +89,7 @@
 
 <p>Register for the first time to start tracking your time.</p>
 
-<form method="POST" action="{% url 'register' %}">
+<form method="POST" action="{% url 'register' %}" id="registration-form">
     {% csrf_token %}
 
     <label>Student ID:</label>
@@ -31,11 +108,153 @@
     <input type="text" name="team_name" required>
     <br><br>
 
+    <!-- Face Capture Section -->
+    <div class="face-capture-section">
+        <h3>Face Registration (Optional but Recommended)</h3>
+        <p>Capture your face to enable faster check-in using face recognition.</p>
+        
+        <div id="face-status" class="face-status"></div>
+        
+        <video id="camera-stream" width="300" height="225" autoplay></video>
+        <canvas id="camera-canvas" style="display: none;" width="300" height="225"></canvas>
+        
+        <div class="camera-controls">
+            <button type="button" id="start-camera-btn">Start Camera</button>
+            <button type="button" id="capture-face-btn" style="display: none;">Capture Face</button>
+            <button type="button" id="retake-face-btn" style="display: none;">Retake Photo</button>
+            <button type="button" id="stop-camera-btn" style="display: none;">Stop Camera</button>
+        </div>
+        
+        <img id="face-preview" alt="Captured Face">
+        <input type="hidden" id="face-image-input" name="face_image">
+        
+        <p class="optional-note">✓ Face capture is optional. You can still register without it and add your face later.</p>
+    </div>
+
+    <br>
     <button type="submit">Register</button>
 
 </form>
 
 <p><a href="{% url 'scan' %}">Already registered? Go to Scan</a></p>
+
+<script>
+    let stream = null;
+    let faceImageData = null;
+    let cameraActive = false;
+
+    const video = document.getElementById('camera-stream');
+    const canvas = document.getElementById('camera-canvas');
+    const ctx = canvas.getContext('2d');
+    const facePreview = document.getElementById('face-preview');
+    const faceImageInput = document.getElementById('face-image-input');
+    const faceStatus = document.getElementById('face-status');
+    
+    const startCameraBtn = document.getElementById('start-camera-btn');
+    const captureFaceBtn = document.getElementById('capture-face-btn');
+    const retakeFaceBtn = document.getElementById('retake-face-btn');
+    const stopCameraBtn = document.getElementById('stop-camera-btn');
+
+    // Show status message
+    function showStatus(message, type = 'info') {
+        faceStatus.textContent = message;
+        faceStatus.className = 'face-status ' + type;
+    }
+
+    // Start camera
+    startCameraBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            showStatus('Camera not supported on this device', 'error');
+            return;
+        }
+
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
+            .then(function(mediaStream) {
+                stream = mediaStream;
+                video.srcObject = mediaStream;
+                cameraActive = true;
+                
+                video.style.display = 'block';
+                facePreview.style.display = 'none';
+                startCameraBtn.style.display = 'none';
+                captureFaceBtn.style.display = 'inline-block';
+                stopCameraBtn.style.display = 'inline-block';
+                showStatus('Camera started. Click "Capture Face" when ready.', 'info');
+            })
+            .catch(function(err) {
+                showStatus('Camera access denied: ' + err.message, 'error');
+            });
+    });
+
+    // Capture face
+    captureFaceBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        if (!cameraActive) return;
+
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        faceImageData = canvas.toDataURL('image/jpeg');
+        
+        facePreview.src = faceImageData;
+        facePreview.style.display = 'block';
+        video.style.display = 'none';
+        
+        captureFaceBtn.style.display = 'none';
+        stopCameraBtn.style.display = 'none';
+        retakeFaceBtn.style.display = 'inline-block';
+        
+        // Store face image in hidden input
+        faceImageInput.value = faceImageData;
+        
+        showStatus('✓ Face captured successfully! Click "Register" to proceed.', 'success');
+    });
+
+    // Retake face
+    retakeFaceBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        faceImageData = null;
+        faceImageInput.value = '';
+        facePreview.style.display = 'none';
+        video.style.display = 'block';
+        
+        captureFaceBtn.style.display = 'inline-block';
+        stopCameraBtn.style.display = 'inline-block';
+        retakeFaceBtn.style.display = 'none';
+        
+        showStatus('Camera restarted. Click "Capture Face" when ready.', 'info');
+    });
+
+    // Stop camera
+    stopCameraBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+            stream = null;
+        }
+        
+        cameraActive = false;
+        video.style.display = 'none';
+        facePreview.style.display = 'none';
+        
+        startCameraBtn.style.display = 'inline-block';
+        captureFaceBtn.style.display = 'none';
+        stopCameraBtn.style.display = 'none';
+        retakeFaceBtn.style.display = 'none';
+        
+        showStatus('Camera stopped', 'info');
+    });
+
+    // Clean up on page unload
+    window.addEventListener('beforeunload', function() {
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+        }
+    });
+</script>
 
 </body>
 </html>

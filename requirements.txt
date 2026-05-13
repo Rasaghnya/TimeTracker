@@ -1,0 +1,6 @@
+Django==6.0.3
+mysql-connector-python==8.2.0
+face_recognition==1.4.0
+opencv-python-headless==4.8.1.78
+numpy==1.24.3
+Pillow==10.0.1
