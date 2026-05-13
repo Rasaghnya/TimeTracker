@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Time Tracker</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+</head>
+
+<body>
+
+<h2 style="text-align: center;">Student Time Tracker</h2>
+
+<p style="text-align: center;">For new students, fill all fields. For existing students exiting, enter only Student ID.</p>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Student ID:</label>
+    <input type="text" name="student_id" required>
+    <br><br>
+
+    <label>Name:</label>
+    <input type="text" name="name">
+    <br><br>
+
+    <label>Year of Study:</label>
+    <input type="number" name="year_of_study">
+    <br><br>
+
+    <label>Team Name:</label>
+    <input type="text" name="team_name">
+    <br><br>
+
+    <button type="submit">Submit</button>
+
+</form>
+<form method="POST">
+    {%csrf_token%}
+    <label>Student ID:</label>
+    <input type="text" name="student_id" required>
+    <button type="submit">Submit</button>
+
+</form>
+
+</body>
+</html>

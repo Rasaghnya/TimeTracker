@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Time Tracker - Scan</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+</head>
+
+<body>
+
+<h2>Student Time Tracker - Entry/Exit</h2>
+
+<p>Scan your Student ID to record entry or exit time.</p>
+
+<form method="POST" action="{% url 'scan' %}">
+    {% csrf_token %}
+
+    <label>Student ID:</label>
+    <input type="text" name="student_id" required autofocus>
+    <br><br>
+
+    <button type="submit">Submit</button>
+
+</form>
+
+<p><a href="{% url 'register' %}">New Student? Go to Registration</a></p>
+
+</body>
+</html>

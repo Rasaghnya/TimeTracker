@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Success</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+    <style>
+        .success-box {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px auto;
+            max-width: 400px;
+            text-align: center;
+        }
+        .status {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .details {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Time Tracker - Success</h2>
+
+<div class="success-box">
+    <div class="status">{{ status_message }}</div>
+    <div class="details">
+        <strong>Student ID:</strong> {{ student_id }}<br>
+        <strong>Name:</strong> {{ student_name }}<br>
+        {% if time_spent %}
+            <strong>Time Spent:</strong> {{ time_spent }}<br>
+        {% endif %}
+        <strong>Timestamp:</strong> {{ timestamp }}
+    </div>
+</div>
+
+<p style="text-align: center;">
+    <a href="{% url 'scan' %}" style="margin-right: 10px;"><button>Back to Scan</button></a>
+</p>
+
+</body>
+</html>

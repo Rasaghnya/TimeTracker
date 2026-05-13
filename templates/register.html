@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+</head>
+
+<body>
+
+<h2>Student Registration</h2>
+
+<p>Register for the first time to start tracking your time.</p>
+
+<form method="POST" action="{% url 'register' %}">
+    {% csrf_token %}
+
+    <label>Student ID:</label>
+    <input type="text" name="student_id" required>
+    <br><br>
+
+    <label>Name:</label>
+    <input type="text" name="name" required>
+    <br><br>
+
+    <label>Year of Study:</label>
+    <input type="number" name="year_of_study" required>
+    <br><br>
+
+    <label>Team Name:</label>
+    <input type="text" name="team_name" required>
+    <br><br>
+
+    <button type="submit">Register</button>
+
+</form>
+
+<p><a href="{% url 'scan' %}">Already registered? Go to Scan</a></p>
+
+</body>
+</html>
