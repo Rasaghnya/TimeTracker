@@ -6,6 +6,8 @@ class Members(models.Model):
     Name = models.CharField(max_length=45)
     YearOfStudy = models.IntegerField()
     TeamName = models.CharField(max_length=45)
+    face_encoding = models.BinaryField(null=True, blank=True, help_text="128-dimensional face encoding stored as binary")
+    face_registered = models.BooleanField(default=False, help_text="Whether the student has registered their face")
     def __str__(self):
         return self.Student_ID 
     

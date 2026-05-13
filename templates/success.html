@@ -12,7 +12,7 @@
             padding: 15px;
             border-radius: 4px;
             margin: 20px auto;
-            max-width: 400px;
+            max-width: 500px;
             text-align: center;
         }
         .status {
@@ -23,6 +23,42 @@
         .details {
             margin: 10px 0;
             font-size: 16px;
+            text-align: left;
+        }
+        .detail-row {
+            margin: 8px 0;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(21, 87, 36, 0.1);
+        }
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            font-weight: bold;
+            display: inline-block;
+            min-width: 120px;
+        }
+        .scan-method-badge {
+            display: inline-block;
+            background-color: #0c5460;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background-color: #218838;
         }
     </style>
 </head>
@@ -34,17 +70,30 @@
 <div class="success-box">
     <div class="status">{{ status_message }}</div>
     <div class="details">
-        <strong>Student ID:</strong> {{ student_id }}<br>
-        <strong>Name:</strong> {{ student_name }}<br>
+        <div class="detail-row">
+            <span class="detail-label">Student ID:</span> {{ student_id }}
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">Name:</span> {{ student_name }}
+        </div>
         {% if time_spent %}
-            <strong>Time Spent:</strong> {{ time_spent }}<br>
+            <div class="detail-row">
+                <span class="detail-label">Time Spent:</span> {{ time_spent }}
+            </div>
         {% endif %}
-        <strong>Timestamp:</strong> {{ timestamp }}
+        <div class="detail-row">
+            <span class="detail-label">Timestamp:</span> {{ timestamp }}
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">Scan Method:</span> 
+            <span class="scan-method-badge">{{ scan_method }}</span>
+        </div>
     </div>
 </div>
 
-<p style="text-align: center;">
-    <a href="{% url 'scan' %}" style="margin-right: 10px;"><button>Back to Scan</button></a>
+<p style="text-align: center; margin-top: 30px;">
+    <a href="{% url 'scan' %}"><button>Back to Scan</button></a>
+    <a href="{% url 'register' %}"><button style="background-color: #007bff;">Back to Home</button></a>
 </p>
 
 </body>
