@@ -1,0 +1,93 @@
+  error: subprocess-exited-with-error
+  
+  Building wheel for dlib (pyproject.toml) did not run successfully.
+  exit code: 1
+  
+  [78 lines of output]
+  INFO:root:running bdist_wheel
+  INFO:root:running build
+  INFO:root:running build_ext
+  Building extension for Python 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+  Invoking CMake setup: 'cmake C:\Users\ramya\AppData\Local\Temp\pip-install-pc7kjs76\dlib_86ab6336963c42f3ac8b8d8223bc0d69\tools\python -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=C:\Users\ramya\AppData\Local\Temp\pip-install-pc7kjs76\dlib_86ab6336963c42f3ac8b8d8223bc0d69\build\lib.win-amd64-cpython-311 -DDLIB_USE_FFMPEG=OFF -DPYTHON_EXECUTABLE=C:\Users\ramya\AppData\Local\Programs\Python\Python311\python.exe -DCMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE=C:\Users\ramya\AppData\Local\Temp\pip-install-pc7kjs76\dlib_86ab6336963c42f3ac8b8d8223bc0d69\build\lib.win-amd64-cpython-311 -A x64'
+  -- Building for: NMake Makefiles
+  CMake Error at CMakeLists.txt:5 (message):
+  
+  
+  
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  
+    You must use Visual Studio to build a python extension on windows.  If you
+    are getting this error it means you have not installed Visual C++.  Note
+    that there are many flavors of Visual Studio, like Visual Studio for C#
+    development.  You need to install Visual Studio for C++.
+  
+  
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  
+  
+  
+  -- Configuring incomplete, errors occurred!
+  Traceback (most recent call last):
+    File "C:\Users\ramya\AppData\Local\Programs\Python\Python311\Lib\site-packages\pip\_vendor\pyproject_hooks\_in_process\_in_process.py", line 389, in <module>
+      main()
+    File "C:\Users\ramya\AppData\Local\Programs\Python\Python311\Lib\site-packages\pip\_vendor\pyproject_hooks\_in_process\_in_process.py", line 373, in main
+      json_out["return_val"] = hook(**hook_input["kwargs"])
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "C:\Users\ramya\AppData\Local\Programs\Python\Python311\Lib\site-packages\pip\_vendor\pyproject_hooks\_in_process\_in_process.py", line 280, in build_wheel
+      return _build_backend().build_wheel(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "C:\Users\ramya\AppData\Local\Temp\pip-build-env-sxxmkh7e\overlay\Lib\site-packages\setuptools\build_meta.py", line 441, in build_wheel
+      return _build(['bdist_wheel', '--dist-info-dir', str(metadata_directory)])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "C:\Users\ramya\AppData\Local\Temp\pip-build-env-sxxmkh7e\overlay\Lib\site-packages\setuptools\build_meta.py", line 429, in _build
+      return self._build_with_temp_dir(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "C:\Users\ramya\AppData\Local\Temp\pip-build-env-sxxmkh7e\overlay\Lib\site-packages\setuptools\build_meta.py", line 410, in _build_with_temp_dir
+      self.run_setup()
+    File "C:\Users\ramya\AppData\Local\Temp\pip-build-env-sxxmkh7e\overlay\Lib\site-packages\setuptools\build_meta.py", line 317, in run_setup
+      exec(code, locals())
+    File "<string>", line 247, in <module>
+    File "C:\Users\ramya\AppData\Local\Temp\pip-build-env-sxxmkh7e\overlay\Lib\site-packages\setuptools\__init__.py", line 117, in setup
+      return distutils.core.setup(**attrs)  # type: ignore[return-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "C:\Users\ramya\AppData\Local\Temp\pip-build-env-sxxmkh7e\overlay\Lib\site-packages\setuptools\_distutils\core.py", line 186, in setup
+      return run_commands(dist)
+             ^^^^^^^^^^^^^^^^^^
+    File "C:\Users\ramya\AppData\Local\Temp\pip-build-env-sxxmkh7e\overlay\Lib\site-packages\setuptools\_distutils\core.py", line 202, in run_commands
+      dist.run_commands()
+    File "C:\Users\ramya\AppData\Local\Temp\pip-build-env-sxxmkh7e\overlay\Lib\site-packages\setuptools\_distutils\dist.py", line 1000, in run_commands
+      self.run_command(cmd)
+    File "C:\Users\ramya\AppData\Local\Temp\pip-build-env-sxxmkh7e\overlay\Lib\site-packages\setuptools\dist.py", line 1107, in run_command
+      super().run_command(command)
+    File "C:\Users\ramya\AppData\Local\Temp\pip-build-env-sxxmkh7e\overlay\Lib\site-packages\setuptools\_distutils\dist.py", line 1019, in run_command
+      cmd_obj.run()
+    File "C:\Users\ramya\AppData\Local\Temp\pip-build-env-sxxmkh7e\overlay\Lib\site-packages\setuptools\command\bdist_wheel.py", line 370, in run
+      self.run_command("build")
+    File "C:\Users\ramya\AppData\Local\Temp\pip-build-env-sxxmkh7e\overlay\Lib\site-packages\setuptools\_distutils\cmd.py", line 341, in run_command
+      self.distribution.run_command(command)
+    File "C:\Users\ramya\AppData\Local\Temp\pip-build-env-sxxmkh7e\overlay\Lib\site-packages\setuptools\dist.py", line 1107, in run_command
+      super().run_command(command)
+    File "C:\Users\ramya\AppData\Local\Temp\pip-build-env-sxxmkh7e\overlay\Lib\site-packages\setuptools\_distutils\dist.py", line 1019, in run_command
+      cmd_obj.run()
+    File "C:\Users\ramya\AppData\Local\Temp\pip-build-env-sxxmkh7e\overlay\Lib\site-packages\setuptools\_distutils\command\build.py", line 135, in run
+      self.run_command(cmd_name)
+    File "C:\Users\ramya\AppData\Local\Temp\pip-build-env-sxxmkh7e\overlay\Lib\site-packages\setuptools\_distutils\cmd.py", line 341, in run_command
+      self.distribution.run_command(command)
+    File "C:\Users\ramya\AppData\Local\Temp\pip-build-env-sxxmkh7e\overlay\Lib\site-packages\setuptools\dist.py", line 1107, in run_command
+      super().run_command(command)
+    File "C:\Users\ramya\AppData\Local\Temp\pip-build-env-sxxmkh7e\overlay\Lib\site-packages\setuptools\_distutils\dist.py", line 1019, in run_command
+      cmd_obj.run()
+    File "<string>", line 170, in run
+    File "<string>", line 214, in build_extension
+    File "C:\Users\ramya\AppData\Local\Programs\Python\Python311\Lib\subprocess.py", line 413, in check_call
+      raise CalledProcessError(retcode, cmd)
+  subprocess.CalledProcessError: Command '['cmake', 'C:\\Users\\ramya\\AppData\\Local\\Temp\\pip-install-pc7kjs76\\dlib_86ab6336963c42f3ac8b8d8223bc0d69\\tools\\python', '-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=C:\\Users\\ramya\\AppData\\Local\\Temp\\pip-install-pc7kjs76\\dlib_86ab6336963c42f3ac8b8d8223bc0d69\\build\\lib.win-amd64-cpython-311', '-DDLIB_USE_FFMPEG=OFF', '-DPYTHON_EXECUTABLE=C:\\Users\\ramya\\AppData\\Local\\Programs\\Python\\Python311\\python.exe', '-DCMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE=C:\\Users\\ramya\\AppData\\Local\\Temp\\pip-install-pc7kjs76\\dlib_86ab6336963c42f3ac8b8d8223bc0d69\\build\\lib.win-amd64-cpython-311', '-A', 'x64']' returned non-zero exit status 1.
+  [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for dlib
+error: failed-wheel-build-for-install
+
+Failed to build installable wheels for some pyproject.toml based projects
+
+dlib
